@@ -2,11 +2,12 @@
 import Base from '../layouts/Base.astro';
 import Brands from '../components/Brands.astro';
 import Branches from '../components/Branches.astro';
+import { link } from '../lib/nav';
 ---
 <Base title="Sobre nosotros" active="nosotros" description="MS Patagonia Argentina: 25 años brindando soluciones integrales en climatización, bombeo de líquidos y aire comprimido en toda la Patagonia.">
   <section class="page-hero">
     <div class="container page-hero__inner">
-      <div class="breadcrumb"><a href="/">Inicio</a><span class="sep">/</span><span>Sobre nosotros</span></div>
+      <div class="breadcrumb"><a href={link('/')}>Inicio</a><span class="sep">/</span><span>Sobre nosotros</span></div>
       <span class="kicker">25 años</span>
       <h1>Somos una empresa de soluciones</h1>
       <p>Hace 25 años acompañamos a las industrias y los hogares de la Patagonia con soluciones integrales en climatización, bombeo de líquidos y aire comprimido.</p>

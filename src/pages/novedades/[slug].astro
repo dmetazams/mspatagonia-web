@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { getCollection } from 'astro:content';
+import { link } from '../../lib/nav';
 
 export async function getStaticPaths() {
   const novedades = await getCollection('novedades', (n) => !n.data.draft);
@@ -13,7 +14,7 @@ const fmt = (d: Date) => d.toLocaleDateString('es-AR', { day: '2-digit', month: 
 <Base title={entry.data.title} active="novedades" description={entry.data.excerpt}>
   <section class="page-hero">
     <div class="container page-hero__inner">
-      <div class="breadcrumb"><a href="/">Inicio</a><span class="sep">/</span><a href="/novedades">Novedades</a><span class="sep">/</span><span>{entry.data.tag}</span></div>
+      <div class="breadcrumb"><a href={link('/')}>Inicio</a><span class="sep">/</span><a href={link('/novedades')}>Novedades</a><span class="sep">/</span><span>{entry.data.tag}</span></div>
       <span class="kicker">{entry.data.tag} · {fmt(entry.data.date)}</span>
       <h1>{entry.data.title}</h1>
     </div>
@@ -25,7 +26,7 @@ const fmt = (d: Date) => d.toLocaleDateString('es-AR', { day: '2-digit', month: 
         <Content />
       </article>
       <div style="margin-top:40px" class="reveal">
-        <a href="/novedades" class="btn btn--outline">← Volver a novedades</a>
+        <a href={link('/novedades')} class="btn btn--outline">← Volver a novedades</a>
       </div>
     </div>
   </section>

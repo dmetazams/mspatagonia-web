@@ -2,11 +2,12 @@
 import Base from '../../layouts/Base.astro';
 import StoreCTA from '../../components/StoreCTA.astro';
 import { productos } from '../../data/productos';
+import { link } from '../../lib/nav';
 ---
 <Base title="Productos" active="productos" description="Categorías de productos de MS Patagonia: aire acondicionado, bombeo, calefacción, grupos electrógenos, motores, válvulas y más. Comprá en la tienda online.">
   <section class="page-hero">
     <div class="container page-hero__inner">
-      <div class="breadcrumb"><a href="/">Inicio</a><span class="sep">/</span><span>Productos</span></div>
+      <div class="breadcrumb"><a href={link('/')}>Inicio</a><span class="sep">/</span><span>Productos</span></div>
       <span class="kicker">Productos</span>
       <h1>Representantes oficiales de marcas líderes</h1>
       <p>Amplia gama de equipos y repuestos en stock. Conocé cada categoría y comprá desde cualquier punto del país en nuestra tienda online.</p>
@@ -17,7 +18,7 @@ import { productos } from '../../data/productos';
     <div class="container">
       <div class="card-grid" style="margin-top:0">
         {productos.map((p) => (
-          <a class="card reveal" href={`/productos/${p.slug}`}>
+          <a class="card reveal" href={link(`/productos/${p.slug}`)}>
             <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.3 7L12 12l8.7-5M12 22V12"/></svg></div>
             <h3>{p.title}</h3><p>{p.desc}</p>
             <span class="card__link">Ver categoría <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>

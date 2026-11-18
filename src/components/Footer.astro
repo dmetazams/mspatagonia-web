@@ -1,5 +1,6 @@
 ---
 import { SITE } from '../config';
+import { link } from '../lib/nav';
 import { sucursales } from '../data/sucursales';
 const year = new Date().getFullYear();
 ---
@@ -7,7 +8,7 @@ const year = new Date().getFullYear();
   <div class="container">
     <div class="footer__top">
       <div class="footer__brand">
-        <a href="/" class="logo logo--footer"><img src="/assets/logo-ms-apilado-blanco.png" alt="MS Patagonia Argentina" class="logo__img logo__img--stacked" /></a>
+        <a href={link('/')} class="logo logo--footer"><img src={link('/assets/logo-ms-apilado-blanco.png')} alt="MS Patagonia Argentina" class="logo__img logo__img--stacked" /></a>
         <div class="footer__badge">25 años</div>
         <p>Soluciones integrales en climatización, bombeo de líquidos y aire comprimido. Inspirados por una pasión por una Patagonia sustentable.</p>
         <div class="socials">
@@ -21,24 +22,24 @@ const year = new Date().getFullYear();
       <div class="footer__col">
         <h4>Soluciones</h4>
         <ul>
-          <li><a href="/soluciones/aire-comprimido">Aire comprimido</a></li>
-          <li><a href="/soluciones/bombeo-de-liquido">Bombeo de líquidos</a></li>
-          <li><a href="/soluciones/climatizacion">Climatización</a></li>
-          <li><a href="/soluciones/electricas">Eléctricas</a></li>
-          <li><a href="/soluciones/tratamiento-de-agua">Tratamiento de agua</a></li>
-          <li><a href="/soluciones/servicios">Servicios</a></li>
+          <li><a href={link('/soluciones/aire-comprimido')}>Aire comprimido</a></li>
+          <li><a href={link('/soluciones/bombeo-de-liquido')}>Bombeo de líquidos</a></li>
+          <li><a href={link('/soluciones/climatizacion')}>Climatización</a></li>
+          <li><a href={link('/soluciones/electricas')}>Eléctricas</a></li>
+          <li><a href={link('/soluciones/tratamiento-de-agua')}>Tratamiento de agua</a></li>
+          <li><a href={link('/soluciones/servicios')}>Servicios</a></li>
         </ul>
       </div>
 
       <div class="footer__col">
         <h4>Compañía</h4>
         <ul>
-          <li><a href="/sobre-nosotros">Sobre nosotros</a></li>
-          <li><a href="/productos">Productos</a></li>
-          <li><a href="/sectores">Sectores</a></li>
-          <li><a href="/novedades">Novedades</a></li>
+          <li><a href={link('/sobre-nosotros')}>Sobre nosotros</a></li>
+          <li><a href={link('/productos')}>Productos</a></li>
+          <li><a href={link('/sectores')}>Sectores</a></li>
+          <li><a href={link('/novedades')}>Novedades</a></li>
           <li><a href={SITE.storeUrl} target="_blank" rel="noopener">Tienda online</a></li>
-          <li><a href="/contacto">Contacto</a></li>
+          <li><a href={link('/contacto')}>Contacto</a></li>
         </ul>
       </div>
 

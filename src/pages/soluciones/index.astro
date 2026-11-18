@@ -2,11 +2,12 @@
 import Base from '../../layouts/Base.astro';
 import StoreCTA from '../../components/StoreCTA.astro';
 import { soluciones } from '../../data/soluciones';
+import { link } from '../../lib/nav';
 ---
 <Base title="Soluciones" active="soluciones" description="Soluciones integrales de MS Patagonia: aire comprimido, bombeo de líquidos, climatización, eléctricas, servicios y tratamiento de agua.">
   <section class="page-hero">
     <div class="container page-hero__inner">
-      <div class="breadcrumb"><a href="/">Inicio</a><span class="sep">/</span><span>Soluciones</span></div>
+      <div class="breadcrumb"><a href={link('/')}>Inicio</a><span class="sep">/</span><span>Soluciones</span></div>
       <span class="kicker">Soluciones integrales</span>
       <h1>A la medida de cada espacio y necesidad</h1>
       <p>Proyecto y asesoramiento, provisión de equipos, instalaciones llave en mano y servicio de postventa para cada una de nuestras líneas.</p>
@@ -17,7 +18,7 @@ import { soluciones } from '../../data/soluciones';
     <div class="container">
       <div class="card-grid" style="margin-top:0">
         {soluciones.map((s) => (
-          <a class="card reveal" href={`/soluciones/${s.slug}`}>
+          <a class="card reveal" href={link(`/soluciones/${s.slug}`)}>
             <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l9 5v10l-9 5-9-5V7z"/><path d="M12 12l9-5M12 12v10M12 12L3 7"/></svg></div>
             <h3>{s.title}</h3><p>{s.intro}</p>
             <span class="card__link">Ver detalle <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>

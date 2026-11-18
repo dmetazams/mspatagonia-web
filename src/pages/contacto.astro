@@ -2,11 +2,12 @@
 import Base from '../layouts/Base.astro';
 import ContactForm from '../components/ContactForm.astro';
 import Branches from '../components/Branches.astro';
+import { link } from '../lib/nav';
 ---
 <Base title="Contacto" active="contacto" description="Contactá a MS Patagonia Argentina. Solicitá asesoramiento en bombeo, climatización, aire comprimido y service.">
   <section class="page-hero">
     <div class="container page-hero__inner">
-      <div class="breadcrumb"><a href="/">Inicio</a><span class="sep">/</span><span>Contacto</span></div>
+      <div class="breadcrumb"><a href={link('/')}>Inicio</a><span class="sep">/</span><span>Contacto</span></div>
       <span class="kicker">Contacto</span>
       <h1>¿Necesitás asesoramiento?</h1>
       <p>Contanos tu proyecto y un especialista te contactará para asesorarte en la mejor solución.</p>
