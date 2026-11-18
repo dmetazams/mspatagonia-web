@@ -22,6 +22,8 @@ jobs:
         uses: actions/checkout@v4
       - name: Build con Astro
         uses: withastro/action@v3
+        with:
+          package-manager: npm
         # Compila el sitio y sube el artefacto (usa npm + astro build).
 
   deploy:
