@@ -1,0 +1,153 @@
+---
+import Base from '../layouts/Base.astro';
+import Brands from '../components/Brands.astro';
+import StoreCTA from '../components/StoreCTA.astro';
+import Branches from '../components/Branches.astro';
+import { soluciones } from '../data/soluciones';
+import { sectores } from '../data/sectores';
+import { productos } from '../data/productos';
+import { getCollection } from 'astro:content';
+import { SITE } from '../config';
+
+const novedades = (await getCollection('novedades', (n) => !n.data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+---
+<Base active="inicio">
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="container hero__inner">
+      <span class="kicker">MS Patagonia Argentina · 25 años</span>
+      <h1>Soluciones integrales en <span class="hl">climatización, bombeo de líquidos</span> y aire comprimido</h1>
+      <p>Somos una empresa de soluciones. Acompañamos cada proyecto desde el asesoramiento técnico hasta el servicio de postventa, en toda la Patagonia.</p>
+      <div class="hero__actions">
+        <a href="/soluciones" class="btn btn--primary">Ver soluciones <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a href="/contacto" class="btn btn--ghost">Solicitar asesoramiento</a>
+      </div>
+    </div>
+    <div class="hero__scroll"><span>Scroll</span><span class="mouse"></span></div>
+  </section>
+
+  <!-- SOLUCIONES: 4 pilares -->
+  <section class="section section--dark" id="nosotros">
+    <div class="container">
+      <div class="reveal">
+        <span class="kicker">Sobre nosotros</span>
+        <h2 class="section-title">Soluciones integrales</h2>
+        <p class="section-lead">Somos una empresa de soluciones. Nuestro trabajo se basa en 4 pilares básicos que acompañan cada proyecto de principio a fin.</p>
+      </div>
+      <div class="pillars">
+        <article class="pillar reveal"><div class="pillar__num">01</div>
+          <div class="pillar__icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg></div>
+          <h3>Proyecto y asesoramiento técnico</h3><p>Diseñamos cada solución a la medida de la necesidad, con personal calificado que acompaña la decisión técnica.</p></article>
+        <article class="pillar reveal"><div class="pillar__num">02</div>
+          <div class="pillar__icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.3 7L12 12l8.7-5M12 22V12"/></svg></div>
+          <h3>Provisión de equipos</h3><p>Representantes oficiales de marcas líderes, con amplio stock en equipos y repuestos para responder con rapidez.</p></article>
+        <article class="pillar reveal"><div class="pillar__num">03</div>
+          <div class="pillar__icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.6 5.6l-6 6a2 2 0 0 0 2.8 2.8l6-6a4 4 0 0 0 5.6-5.6l-2.5 2.5-2.1-2.1z"/></svg></div>
+          <h3>Instalaciones llave en mano</h3><p>Ejecutamos obras completas, integrando ingeniería, montaje y puesta en marcha sin importar la escala del proyecto.</p></article>
+        <article class="pillar reveal"><div class="pillar__num">04</div>
+          <div class="pillar__icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <h3>Servicio de postventa</h3><p>Asistencia técnica, mantenimiento y soporte continuo que garantizan la vida útil de cada instalación.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLUCIONES: grid -->
+  <section class="section">
+    <div class="container">
+      <div class="reveal">
+        <span class="kicker">Soluciones</span>
+        <h2 class="section-title">A la medida de cada espacio y necesidad</h2>
+        <p class="section-lead">Seis líneas de soluciones integrales para la industria y el hogar de la Patagonia.</p>
+      </div>
+      <div class="card-grid">
+        {soluciones.map((s) => (
+          <a class="card reveal" href={`/soluciones/${s.slug}`}>
+            <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l9 5v10l-9 5-9-5V7z"/><path d="M12 12l9-5M12 12v10M12 12L3 7"/></svg></div>
+            <h3>{s.title}</h3><p>{s.intro}</p>
+            <span class="card__link">Ver más <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTOS -->
+  <section class="section section--light" id="productos">
+    <div class="container">
+      <div class="split">
+        <div class="split__media reveal"><div class="badge"><strong>+{productos.length}</strong><span>categorías de productos en stock permanente</span></div></div>
+        <div class="reveal">
+          <span class="kicker">Productos</span>
+          <h2 class="section-title">Representantes oficiales de marcas líderes</h2>
+          <p class="section-lead">Somos representantes oficiales y servicio técnico autorizado de marcas líderes. Contamos con una amplia gama de stock en equipos y repuestos.</p>
+          <div class="product-tags">
+            {productos.slice(0, 10).map((p) => <span>{p.title}</span>)}
+          </div>
+          <a href="/productos" class="btn btn--dark">Ver categorías <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTORES -->
+  <section class="section" id="sectores">
+    <div class="container">
+      <div class="reveal">
+        <span class="kicker">Sectores y aplicaciones</span>
+        <h2 class="section-title">Soluciones para cada industria</h2>
+        <p class="section-lead">Acompañamos a los principales sectores productivos de la Patagonia con soluciones adaptadas a cada necesidad.</p>
+      </div>
+      <div class="sectors">
+        {sectores.map((s) => (
+          <a href={`/sectores/${s.slug}`} class="sector reveal"><span class={`sector__bg ${s.grad}`}></span><span class="sector__label">{s.title} <span class="arrow">→</span></span></a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Brands />
+  <StoreCTA />
+
+  <!-- PROPÓSITO -->
+  <section class="section section--dark">
+    <div class="container purpose reveal">
+      <span class="mark">“</span>
+      <blockquote>Nuestro propósito es solucionar desafíos inspirados en nuestra pasión por una <span class="hl">Patagonia sustentable</span>.</blockquote>
+    </div>
+  </section>
+
+  <!-- NOVEDADES -->
+  <section class="section" id="novedades">
+    <div class="container">
+      <div class="reveal"><span class="kicker">Novedades</span><h2 class="section-title">Lo último en MS Patagonia</h2></div>
+      <div class="news-grid">
+        {novedades.map((n) => (
+          <a class="news-card reveal" href={`/novedades/${n.slug}`}>
+            <div class="news-card__img"><span class={`ph ${n.data.cover}`}>{n.data.tag.toUpperCase()}</span></div>
+            <div class="news-card__body">
+              <span class="news-card__tag">{n.data.tag}</span>
+              <h3>{n.data.title}</h3>
+              <span class="news-card__more">Ver más <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Branches />
+
+  <!-- CTA contacto -->
+  <section class="section section--light">
+    <div class="container" style="text-align:center">
+      <div class="reveal" style="max-width:640px;margin:0 auto">
+        <span class="kicker" style="justify-content:center">Contacto</span>
+        <h2 class="section-title">¿Necesitás asesoramiento?</h2>
+        <p class="section-lead mx-auto" style="margin-bottom:28px">Contanos tu proyecto y un especialista te contactará para asesorarte en la mejor solución.</p>
+        <a href="/contacto" class="btn btn--primary">Solicitar asesoramiento <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+  </section>
+</Base>

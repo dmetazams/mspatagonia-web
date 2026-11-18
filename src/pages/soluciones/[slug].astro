@@ -1,0 +1,38 @@
+---
+import Base from '../../layouts/Base.astro';
+import StoreCTA from '../../components/StoreCTA.astro';
+import { soluciones } from '../../data/soluciones';
+
+export function getStaticPaths() {
+  return soluciones.map((s) => ({ params: { slug: s.slug }, props: { sol: s } }));
+}
+const { sol } = Astro.props;
+---
+<Base title={`${sol.title} — Soluciones`} active="soluciones" description={sol.intro}>
+  <section class="page-hero">
+    <div class="container page-hero__inner">
+      <div class="breadcrumb"><a href="/">Inicio</a><span class="sep">/</span><a href="/soluciones">Soluciones</a><span class="sep">/</span><span>{sol.title}</span></div>
+      <span class="kicker">Soluciones</span>
+      <h1>{sol.title}</h1>
+      <p>{sol.intro}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="reveal" style="max-width:760px">
+        <span class="kicker">¿Qué ofrecemos?</span>
+        <h2 class="section-title">Alcance de la solución</h2>
+        <p class="section-lead">Estas son las aplicaciones y servicios que cubrimos dentro de {sol.title.toLowerCase()}. Contanos tu proyecto y lo adaptamos a tu necesidad.</p>
+      </div>
+      <ul class="item-list reveal">
+        {sol.items.map((it) => <li>{it}</li>)}
+      </ul>
+      <div style="margin-top:40px" class="reveal">
+        <a href="/contacto" class="btn btn--primary">Solicitar asesoramiento <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <StoreCTA />
+</Base>

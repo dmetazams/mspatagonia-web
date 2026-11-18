@@ -1,0 +1,32 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const novedades = await getCollection('novedades', (n) => !n.data.draft);
+  return novedades.map((n) => ({ params: { slug: n.slug }, props: { entry: n } }));
+}
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const fmt = (d: Date) => d.toLocaleDateString('es-AR', { day: '2-digit', month: 'long', year: 'numeric' });
+---
+<Base title={entry.data.title} active="novedades" description={entry.data.excerpt}>
+  <section class="page-hero">
+    <div class="container page-hero__inner">
+      <div class="breadcrumb"><a href="/">Inicio</a><span class="sep">/</span><a href="/novedades">Novedades</a><span class="sep">/</span><span>{entry.data.tag}</span></div>
+      <span class="kicker">{entry.data.tag} · {fmt(entry.data.date)}</span>
+      <h1>{entry.data.title}</h1>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <article class="prose reveal">
+        <Content />
+      </article>
+      <div style="margin-top:40px" class="reveal">
+        <a href="/novedades" class="btn btn--outline">← Volver a novedades</a>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,35 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const novedades = (await getCollection('novedades', (n) => !n.data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const fmt = (d: Date) => d.toLocaleDateString('es-AR', { day: '2-digit', month: 'long', year: 'numeric' });
+---
+<Base title="Novedades" active="novedades" description="Novedades, capacitaciones y participaciones de MS Patagonia Argentina.">
+  <section class="page-hero">
+    <div class="container page-hero__inner">
+      <div class="breadcrumb"><a href="/">Inicio</a><span class="sep">/</span><span>Novedades</span></div>
+      <span class="kicker">Novedades</span>
+      <h1>Lo último en MS Patagonia</h1>
+      <p>Capacitaciones, participaciones y novedades de nuestras líneas de solución.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="news-grid" style="margin-top:0">
+        {novedades.map((n) => (
+          <a class="news-card reveal" href={`/novedades/${n.slug}`}>
+            <div class="news-card__img"><span class={`ph ${n.data.cover}`}>{n.data.tag.toUpperCase()}</span></div>
+            <div class="news-card__body">
+              <span class="news-card__tag">{n.data.tag} · {fmt(n.data.date)}</span>
+              <h3>{n.data.title}</h3>
+              <span class="news-card__more">Ver más <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

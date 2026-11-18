@@ -1,0 +1,56 @@
+---
+import { marcas } from '../data/marcas';
+const dup = [...marcas, ...marcas];
+---
+<section class="section" id="marcas">
+  <div class="container">
+    <div class="reveal">
+      <span class="kicker">Nuestras marcas</span>
+      <h2 class="section-title">Alianzas que respaldan cada solución</h2>
+      <p class="section-lead">Trabajamos con fabricantes líderes a nivel nacional y global. Conocé por qué elegimos a cada uno.</p>
+    </div>
+
+    <div class="brand-wall reveal">
+      <div class="brand-track-wrap">
+        <div class="brand-track">
+          {dup.map((m) => <div class="brand-chip">{m.name}</div>)}
+        </div>
+      </div>
+    </div>
+
+    <div class="brand-detail reveal">
+      <div class="brand-list" id="brandList">
+        {marcas.map((m, i) => (
+          <button class={i === 0 ? 'active' : ''} data-i={i}>{m.name}</button>
+        ))}
+      </div>
+      <div class="brand-panel" id="brandPanel"></div>
+    </div>
+  </div>
+</section>
+
+<script type="application/json" id="marcasData" is:inline set:html={JSON.stringify(marcas)}></script>
+<script is:inline>
+  (function () {
+    const data = JSON.parse(document.getElementById('marcasData').textContent);
+    const list = document.getElementById('brandList');
+    const panel = document.getElementById('brandPanel');
+    if (!list || !panel) return;
+    function render(i) {
+      const b = data[i];
+      panel.innerHTML =
+        '<h3 class="brand-panel__name">' + b.name + '</h3>' +
+        '<span class="brand-panel__since">' + b.since + '</span>' +
+        '<p>' + b.desc + '</p>' +
+        '<p class="brand-panel__why">¿Por qué elegimos trabajar con ' + b.name + '?</p>' +
+        '<p>' + b.why + '</p>';
+    }
+    list.addEventListener('click', (e) => {
+      const btn = e.target.closest('button'); if (!btn) return;
+      list.querySelectorAll('button').forEach((x) => x.classList.remove('active'));
+      btn.classList.add('active');
+      render(+btn.dataset.i);
+    });
+    render(0);
+  })();
+</script>

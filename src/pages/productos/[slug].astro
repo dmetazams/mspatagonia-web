@@ -1,0 +1,37 @@
+---
+import Base from '../../layouts/Base.astro';
+import { productos } from '../../data/productos';
+import { SITE } from '../../config';
+
+export function getStaticPaths() {
+  return productos.map((p) => ({ params: { slug: p.slug }, props: { prod: p } }));
+}
+const { prod } = Astro.props;
+---
+<Base title={`${prod.title} — Productos`} active="productos" description={prod.desc}>
+  <section class="page-hero">
+    <div class="container page-hero__inner">
+      <div class="breadcrumb"><a href="/">Inicio</a><span class="sep">/</span><a href="/productos">Productos</a><span class="sep">/</span><span>{prod.title}</span></div>
+      <span class="kicker">Productos</span>
+      <h1>{prod.title}</h1>
+      <p>{prod.desc}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="split">
+        <div class="split__media reveal"><div class="badge"><strong>{prod.title}</strong><span>Equipos y repuestos de marcas líderes en stock</span></div></div>
+        <div class="reveal">
+          <span class="kicker">Categoría</span>
+          <h2 class="section-title">Comprá en la tienda online</h2>
+          <p class="section-lead">Encontrá el catálogo completo, precios y disponibilidad de {prod.title.toLowerCase()} en nuestra tienda. ¿Necesitás asesoramiento técnico? Escribinos y te ayudamos a elegir.</p>
+          <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:28px">
+            <a href={SITE.storeUrl} target="_blank" rel="noopener" class="btn btn--primary">Ver en la tienda <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <a href="/contacto" class="btn btn--outline">Solicitar asesoramiento</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

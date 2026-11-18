@@ -1,0 +1,38 @@
+---
+import Base from '../../layouts/Base.astro';
+import StoreCTA from '../../components/StoreCTA.astro';
+import { sectores } from '../../data/sectores';
+
+export function getStaticPaths() {
+  return sectores.map((s) => ({ params: { slug: s.slug }, props: { sector: s } }));
+}
+const { sector } = Astro.props;
+---
+<Base title={`${sector.title} — Sectores`} active="sectores" description={sector.intro}>
+  <section class="page-hero">
+    <div class="container page-hero__inner">
+      <div class="breadcrumb"><a href="/">Inicio</a><span class="sep">/</span><a href="/sectores">Sectores</a><span class="sep">/</span><span>{sector.title}</span></div>
+      <span class="kicker">Sector</span>
+      <h1>{sector.title}</h1>
+      <p>{sector.intro}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="reveal" style="max-width:760px">
+        <span class="kicker">Lo que resolvemos</span>
+        <h2 class="section-title">Soluciones para {sector.title}</h2>
+        <p class="section-lead">Integramos equipos, ingeniería y servicio para responder a las exigencias del sector.</p>
+      </div>
+      <ul class="item-list reveal">
+        {sector.bullets.map((b) => <li>{b}</li>)}
+      </ul>
+      <div style="margin-top:40px" class="reveal">
+        <a href="/contacto" class="btn btn--primary">Solicitar asesoramiento <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <StoreCTA />
+</Base>

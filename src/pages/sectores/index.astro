@@ -1,0 +1,24 @@
+---
+import Base from '../../layouts/Base.astro';
+import { sectores } from '../../data/sectores';
+---
+<Base title="Sectores y aplicaciones" active="sectores" description="Soluciones de MS Patagonia para Oil & Gas, empresas de agua, construcción, minería, hogar, agro y otras industrias.">
+  <section class="page-hero">
+    <div class="container page-hero__inner">
+      <div class="breadcrumb"><a href="/">Inicio</a><span class="sep">/</span><span>Sectores</span></div>
+      <span class="kicker">Sectores y aplicaciones</span>
+      <h1>Soluciones para cada industria</h1>
+      <p>Acompañamos a los principales sectores productivos de la Patagonia con soluciones adaptadas a cada necesidad.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sectors" style="margin-top:0">
+        {sectores.map((s) => (
+          <a href={`/sectores/${s.slug}`} class="sector reveal"><span class={`sector__bg ${s.grad}`}></span><span class="sector__label">{s.title} <span class="arrow">→</span></span></a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,62 @@
+---
+import { SITE } from '../config';
+import { soluciones } from '../data/soluciones';
+import { productos } from '../data/productos';
+import { sectores } from '../data/sectores';
+
+interface Props { active?: string; }
+const { active } = Astro.props;
+const is = (k: string) => (active === k ? 'active' : '');
+---
+<header class="header" id="header">
+  <div class="container header__inner">
+    <a href="/" class="logo" aria-label="MS Patagonia Argentina — inicio">
+      <img src="/assets/logo-ms-horizontal-blanco.png" alt="MS Patagonia Argentina" class="logo__img" />
+    </a>
+
+    <nav class="nav" id="nav">
+      <div class="nav__item"><a href="/sobre-nosotros" class={`nav__link ${is('nosotros')}`}>Sobre nosotros</a></div>
+
+      <div class="nav__item">
+        <a href="/soluciones" class={`nav__link ${is('soluciones')}`}>Soluciones
+          <svg class="caret" viewBox="0 0 12 8" fill="none"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </a>
+        <div class="dropdown dropdown--wide">
+          <div class="dropdown__grid">
+            {soluciones.map((s) => <a href={`/soluciones/${s.slug}`}>{s.title}</a>)}
+          </div>
+        </div>
+      </div>
+
+      <div class="nav__item">
+        <a href="/productos" class={`nav__link ${is('productos')}`}>Productos
+          <svg class="caret" viewBox="0 0 12 8" fill="none"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </a>
+        <div class="dropdown dropdown--wide">
+          <div class="dropdown__grid">
+            {productos.map((p) => <a href={`/productos/${p.slug}`}>{p.title}</a>)}
+          </div>
+        </div>
+      </div>
+
+      <div class="nav__item">
+        <a href="/sectores" class={`nav__link ${is('sectores')}`}>Sectores
+          <svg class="caret" viewBox="0 0 12 8" fill="none"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </a>
+        <div class="dropdown">
+          <div class="dropdown__grid">
+            {sectores.map((s) => <a href={`/sectores/${s.slug}`}>{s.title}</a>)}
+          </div>
+        </div>
+      </div>
+
+      <div class="nav__item"><a href="/novedades" class={`nav__link ${is('novedades')}`}>Novedades</a></div>
+      <div class="nav__item"><a href={SITE.storeUrl} target="_blank" rel="noopener" class="nav__link nav__link--store">Tienda</a></div>
+    </nav>
+
+    <div class="header__actions">
+      <a href="/contacto" class="btn btn--primary">Contactanos</a>
+      <button class="burger" id="burger" aria-label="Menú"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,93 @@
+---
+import { CLIENTIFY } from '../config';
+const cfg = { endpoint: CLIENTIFY.formEndpoint, fields: CLIENTIFY.formFields };
+---
+<form class="form reveal" id="contactForm" novalidate>
+  <div class="form-row">
+    <label for="motivo">Motivo de la consulta <span class="req">*</span></label>
+    <select id="motivo" name="motivo" required>
+      <option value="">— Por favor, elegí una opción —</option>
+      <option>Bombeo de líquido</option>
+      <option>Climatización</option>
+      <option>Aire comprimido</option>
+      <option>Service</option>
+      <option>Otros</option>
+    </select>
+  </div>
+  <div class="form-row two">
+    <div>
+      <label for="nombre">Nombre completo <span class="req">*</span></label>
+      <input type="text" id="nombre" name="nombre" required autocomplete="name" />
+    </div>
+    <div>
+      <label for="telefono">Teléfono</label>
+      <input type="tel" id="telefono" name="telefono" autocomplete="tel" />
+    </div>
+  </div>
+  <div class="form-row">
+    <label for="email">E-mail <span class="req">*</span></label>
+    <input type="email" id="email" name="email" required autocomplete="email" />
+  </div>
+  <div class="form-row">
+    <label for="mensaje">Tu consulta <span class="req">*</span></label>
+    <textarea id="mensaje" name="mensaje" required></textarea>
+  </div>
+  <p class="form__note">(*) Los campos marcados con asterisco son obligatorios.</p>
+  <button type="submit" class="btn btn--primary">
+    Solicitar asesoramiento
+    <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <div class="form__msg ok" id="formMsgOk">¡Gracias! Tu consulta fue registrada. Te contactaremos a la brevedad.</div>
+  <div class="form__msg err" id="formMsgErr">Hubo un problema al enviar. Probá de nuevo o escribinos por WhatsApp.</div>
+</form>
+
+<script type="application/json" id="clientifyCfg" is:inline set:html={JSON.stringify(cfg)}></script>
+<script is:inline>
+  (function () {
+    const cfg = JSON.parse(document.getElementById('clientifyCfg').textContent);
+    const form = document.getElementById('contactForm');
+    const okMsg = document.getElementById('formMsgOk');
+    const errMsg = document.getElementById('formMsgErr');
+    if (!form) return;
+
+    form.querySelectorAll('[required]').forEach((f) =>
+      f.addEventListener('input', () => f.classList.remove('field-error'))
+    );
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      okMsg.classList.remove('show'); errMsg.classList.remove('show');
+      let ok = true;
+      form.querySelectorAll('[required]').forEach((f) => {
+        const bad = !f.value.trim() || (f.type === 'email' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.value));
+        f.classList.toggle('field-error', bad); if (bad) ok = false;
+      });
+      if (!ok) return;
+
+      const map = cfg.fields;
+      const data = {
+        [map.motivo]: form.motivo.value,
+        [map.nombre]: form.nombre.value,
+        [map.telefono]: form.telefono.value,
+        [map.email]: form.email.value,
+        [map.mensaje]: form.mensaje.value,
+      };
+
+      // Sin endpoint configurado → modo demo (no envía, muestra éxito).
+      if (!cfg.endpoint) { okMsg.classList.add('show'); form.reset(); return; }
+
+      try {
+        const body = new URLSearchParams(data);
+        await fetch(cfg.endpoint, {
+          method: 'POST',
+          mode: 'no-cors', // los webforms de Clientify aceptan POST cross-origin
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body,
+        });
+        okMsg.classList.add('show'); form.reset();
+      } catch (err) {
+        errMsg.classList.add('show');
+      }
+    });
+  })();
+</script>

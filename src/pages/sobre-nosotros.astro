@@ -1,0 +1,49 @@
+---
+import Base from '../layouts/Base.astro';
+import Brands from '../components/Brands.astro';
+import Branches from '../components/Branches.astro';
+---
+<Base title="Sobre nosotros" active="nosotros" description="MS Patagonia Argentina: 25 años brindando soluciones integrales en climatización, bombeo de líquidos y aire comprimido en toda la Patagonia.">
+  <section class="page-hero">
+    <div class="container page-hero__inner">
+      <div class="breadcrumb"><a href="/">Inicio</a><span class="sep">/</span><span>Sobre nosotros</span></div>
+      <span class="kicker">25 años</span>
+      <h1>Somos una empresa de soluciones</h1>
+      <p>Hace 25 años acompañamos a las industrias y los hogares de la Patagonia con soluciones integrales en climatización, bombeo de líquidos y aire comprimido.</p>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="container">
+      <div class="reveal">
+        <span class="kicker">Nuestro trabajo</span>
+        <h2 class="section-title">Cuatro pilares que sostienen cada proyecto</h2>
+        <p class="section-lead">Acompañamos cada solución de principio a fin, con personal calificado en cada una de nuestras sucursales.</p>
+      </div>
+      <div class="pillars">
+        <article class="pillar reveal"><div class="pillar__num">01</div>
+          <div class="pillar__icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg></div>
+          <h3>Proyecto y asesoramiento técnico</h3><p>Diseñamos cada solución a la medida de la necesidad, con personal calificado.</p></article>
+        <article class="pillar reveal"><div class="pillar__num">02</div>
+          <div class="pillar__icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.3 7L12 12l8.7-5M12 22V12"/></svg></div>
+          <h3>Provisión de equipos</h3><p>Representantes oficiales de marcas líderes, con amplio stock en equipos y repuestos.</p></article>
+        <article class="pillar reveal"><div class="pillar__num">03</div>
+          <div class="pillar__icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.6 5.6l-6 6a2 2 0 0 0 2.8 2.8l6-6a4 4 0 0 0 5.6-5.6l-2.5 2.5-2.1-2.1z"/></svg></div>
+          <h3>Instalaciones llave en mano</h3><p>Ejecutamos obras completas, sin importar la escala del proyecto.</p></article>
+        <article class="pillar reveal"><div class="pillar__num">04</div>
+          <div class="pillar__icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <h3>Servicio de postventa</h3><p>Asistencia técnica, mantenimiento y soporte continuo.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container purpose reveal">
+      <span class="mark" style="color:var(--amarillo)">“</span>
+      <blockquote style="color:var(--blue-deep)">Nuestro propósito es solucionar desafíos inspirados en nuestra pasión por una <span class="hl" style="color:var(--celeste-dark)">Patagonia sustentable</span>.</blockquote>
+    </div>
+  </section>
+
+  <Brands />
+  <Branches />
+</Base>
